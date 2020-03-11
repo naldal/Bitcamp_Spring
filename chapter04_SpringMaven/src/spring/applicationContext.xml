@@ -41,45 +41,10 @@
 		<property name="maxIdle" value="${jdbc.maxIdle}"/>
 	</bean>
 	
-	<!-- main -->
-	<bean id="helloSpring" class="user.main.HelloSpring"></bean>
+	<context:component-scan base-package="user.main"/>
+	<context:component-scan base-package="user.dao"/>
+	<context:component-scan base-package="user.service"/>
 	
-	<!-- dto -->
-	<bean id="userDTO" class="user.bean.UserDTO"></bean>
-	
-	<!-- dao -->
-	<bean id="userDAOImpl" class="user.dao.UserDAOImpl">
-		<property name="dataSource" ref="dataSource"/>
-		
-		<!-- <property name="jdbcTemplate" ref="jdbcTemplate"></property> -->
-	</bean>
-	
-	<!-- jdbc template -->
-	<!-- <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<constructor-arg ref="dataSource"></constructor-arg>
-	</bean> -->
-	
-	
-	<!-- insert -->
-	<bean id="userInsertService" class="user.service.UserInsertService">
-		<property name="userDTO" ref="userDTO"/>
-		<property name="userDAO" ref="userDAOImpl"/>
-	</bean>
-	
-	<!-- select -->
-	<bean id="userSelectService" class="user.service.UserSelectService">
-		<property name="userDAO" ref="userDAOImpl"></property>
-	</bean>
-	
-	<!-- update -->
-	<bean id="userUpdateService" class="user.service.UserUpdateService">
-		<property name="userDTO" ref="userDTO"/>
-		<property name="userDAO" ref="userDAOImpl"/>
-	</bean>
-	
-	<!-- delete -->
-	<bean id="userDeleteService" class="user.service.UserDeleteService">
-		<property name="userDAO" ref="userDAOImpl"/>
-	</bean>
+	<context:component-scan base-package="com.conf"/>
 
 </beans>
