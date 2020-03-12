@@ -41,10 +41,11 @@
 		<property name="maxIdle" value="${jdbc.maxIdle}"/>
 	</bean>
 	
+	<context:component-scan base-package="com.conf"/>
 	<context:component-scan base-package="user.main"/>
+	<context:component-scan base-package="user.bean"/>
 	<context:component-scan base-package="user.dao"/>
 	<context:component-scan base-package="user.service"/>
 	
-	<context:component-scan base-package="com.conf"/>
 
 </beans>

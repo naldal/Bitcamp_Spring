@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import user.bean.UserDTO;
 import user.dao.UserDAO;
 
-@Component
+@Service
 public class UserSelectService implements UserService{
-
-	@Setter
+	
 	@Autowired
 	UserDAO userDAO;
 

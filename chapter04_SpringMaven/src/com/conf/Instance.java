@@ -28,24 +28,4 @@ public class Instance {
 		return basicDataSource;
 	}
 
-	
-	@Bean(name="userInsertService") 
-	public UserInsertService getUserInsertService() {
-		return new UserInsertService();
-	}
-	
-	@Bean(name="userSelectService") 
-	public UserSelectService getUserSelectService() {
-		return new UserSelectService();
-	}
-	
-	@Bean(name="userUpdateService")
-	public UserUpdateService getUserUpdateService() {
-		return new UserUpdateService(); 
-	}
-	
-	@Bean(name="userdeleteService")
-	public UserDeleteService getUserDeleteService() {
-		return new UserDeleteService();
-	}
 }

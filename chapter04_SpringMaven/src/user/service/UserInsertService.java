@@ -4,13 +4,14 @@ import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import user.bean.UserDTO;
 import user.dao.UserDAO;
 import user.dao.UserDAOImpl;
 
-@Component
+@Service
 public class UserInsertService implements UserService {
 
 //	Autowired가 있으면 @Setter이 필요없다

@@ -1,14 +1,14 @@
 package user.service;
 
-import java.util.Scanner;
+import java.util.Scanner; 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import user.dao.UserDAO;
 
-@Component
+@Service
 public class UserDeleteService implements UserService{
 	@Setter
 	@Autowired

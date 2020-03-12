@@ -1,34 +1,27 @@
 package user.dao;
 
-import java.util.HashMap;
+import java.util.HashMap;  
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
-
-import lombok.Setter;
+import org.springframework.stereotype.Repository;
 import user.bean.UserDTO;
 
-
-@SuppressWarnings("unused")
-@Component
+@Repository("userDAO")
 public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO {
-	@Autowired
-	BasicDataSource dataSource;
 	
-	@PostConstruct
-	public void initialize() {
-		setDataSource(dataSource);
+	@Autowired
+	public void setDS(DataSource dataSource) {
+		setDataSource(dataSource                                                                                                    );
 	}
+	
 	
 	@Override
 	public void userWrite(UserDTO userDTO) {		
