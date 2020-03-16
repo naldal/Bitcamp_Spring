@@ -9,4 +9,9 @@ public interface UserService {
 	public void write(UserDTO userDTO);
 
 	public List<UserDTO> getUserList();
+
+	public UserDTO checkId(String id);
+
+	public UserDTO getUser(String id);
+
 }

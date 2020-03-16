@@ -12,10 +12,10 @@ import user.service.UserService;
 
 @Repository("userDAO")
 @Transactional
-public class UserDAOMybatis implements UserDAO{
+public class UserDAOMybatis implements UserDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Override
 	public void write(UserDTO userDTO) {
 		sqlSession.insert("userSQL.write", userDTO);
@@ -24,6 +24,16 @@ public class UserDAOMybatis implements UserDAO{
 	@Override
 	public List<UserDTO> getUserList() {
 		return sqlSession.selectList("userSQL.getUserList");
+	}
+
+	@Override
+	public UserDTO checkId(String id) {
+		return sqlSession.selectOne("userSQL.checkId", id);
+	}
+
+	@Override
+	public UserDTO getUser(String id) {
+		return sqlSession.selectOne("userSQL.getUser", id);
 	}
 
 }

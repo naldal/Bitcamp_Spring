@@ -22,4 +22,15 @@ public class UserServiceImpl implements UserService{
 	public List<UserDTO> getUserList() {
 		return userDAO.getUserList();
 	}
+
+	@Override
+	public UserDTO checkId(String id) {
+		return userDAO.checkId(id);
+	}
+
+	@Override
+	public UserDTO getUser(String id) {
+		return userDAO.getUser(id);
+	}
+
 }
