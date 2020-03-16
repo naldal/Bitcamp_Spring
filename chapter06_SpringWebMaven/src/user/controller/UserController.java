@@ -119,4 +119,28 @@ public class UserController {
 		}
 		return json;
 	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	@ResponseBody
+	public void modify(@ModelAttribute UserDTO userDTO) {
+		userService.modify(userDTO);
+	}
+	
+	@RequestMapping(value = "/deleteForm", method = RequestMethod.GET)
+	public String deleteForm() {
+		return "/user/deleteForm";
+	}
+	
+	@RequestMapping(value = "/delete", method=RequestMethod.POST)
+	@ResponseBody
+	public String delete(@RequestParam String id) {
+		
+		int num = userService.delete(id);
+		if(num < 1) {
+			return "non_exist";
+		} else {
+			return "exist";
+		}
+		
+	}
 }

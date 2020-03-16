@@ -23,6 +23,7 @@
 					<td width="70" align="center">이름</td>
 					<td><input type="text" name="name" id="name"
 						placeholder="이름 입력">
+					<div id="nameDiv"></div>
 				</tr>
 
 				<tr>
@@ -34,13 +35,14 @@
 				<tr>
 					<td align="center">비밀번호</td>
 					<td><input type="password" id="pwd" name="pwd">
+					<div id="pwdDiv"></div>
 				</tr>
 
 				<tr>
 					<td colspan="2" align="center">
 					<input type="button" id="modifyBtn" value="수정">
 					<input type="reset"	id="resetBtn" value="다시작성">
-					<input type="button" value="목록" onclick=""></input>
+					<input type="button" value="목록" id="goList"></input>
 					</td>
 				</tr>
 			</table>

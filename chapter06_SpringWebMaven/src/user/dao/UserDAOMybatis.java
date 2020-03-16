@@ -36,4 +36,15 @@ public class UserDAOMybatis implements UserDAO {
 		return sqlSession.selectOne("userSQL.getUser", id);
 	}
 
+	@Override
+	public void modify(UserDTO userDTO) {
+		 sqlSession.update("userSQL.modify", userDTO);
+		
+	}
+
+	@Override
+	public int delete(String id) {
+		return sqlSession.delete("userSQL.deleteUser", id);
+	}
+
 }

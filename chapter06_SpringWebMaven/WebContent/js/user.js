@@ -63,8 +63,9 @@ $('#id').focusout(function () {
 	}
 });
 
+/* 수정 */
 $('#modifyForm').hide();
-$('#searchBtn').click(function () {
+$('#searchBtn').click(function (event) {
 	$('#resultDiv').empty();
 
 	if ($('#searchId').val() == "") {
@@ -100,5 +101,94 @@ $('#searchBtn').click(function () {
 });
 
 $('#resetBtn').click(function(){
-	$('#name').empty();
+	$('#searchBtn').trigger('click');
+});
+
+$('#modifyBtn').click(function(){
+	$('#nameDiv').empty();
+	$('#pwdDiv').empty();
+	
+	if ($('#name').val() == "") {
+		$('#nameDiv').text('이름을 입력하세요');
+		$('#nameDiv').css('font-size', '8px');
+		$('#nameDiv').css('color', 'red');
+	} else if ($('#id').val() == '') {
+		$('#idDiv').text('아이디를 입력하세요');
+		$('#idDiv').css('font-size', '8px');
+		$('#idDiv').css('color', 'red');
+	} else if ($('#pwd').val() == '') {
+		$('#pwdDiv').text('패스워드를 입력하세요');
+		$('#pwdDiv').css('font-size', '8px');
+		$('#pwdDiv').css('color', 'red');
+	} else {
+		// $('#modifyForm').submit();
+		$.ajax({
+			type: 'post',
+			url: '/chapter06_SpringWebMaven/user/modify',
+			data: $('#modifyForm').serialize(),
+			success: function (data) {
+				alert('회원정보를 수정하였습니다.');
+			},
+			error: function (err) {
+				console.log(err);
+				alert('실패');
+			}
+		});
+	}
+});
+
+$('#goList').click(function(){
+	location.replace('/chapter06_SpringWebMaven/user/list');
+});
+
+
+/* 삭제 */
+$('#deleteBtn').click(function(){
+	if($('#id').val()=='') {
+		$('#delDiv').text('아이디를 입력해라 ㅋㅋㅋ.');
+		$('#delDiv').css('font-size', '8pt');
+		$('#delDiv').css('color', 'red');
+	} else {
+		$.ajax({
+			type: 'post',
+			url: '/chapter06_SpringWebMaven/user/delete',
+			data: 'id='+$('#delete').val(),
+			dataType: 'text',
+			success: function(data) {
+				if(data == 'exist'){
+					alert('삭제 완료되었습니다');
+					location.replace('/chapter06_SpringWebMaven/user/list');
+				} else if(data == 'non_exist'){
+					alert('삭제할 아이디가 없습니다.');
+				}
+			}
+		});
+	}
+});
+
+/* 검색 */
+$('#search').type(function(){
+	if($('#searchOpt').val()=='이름'){
+		$.ajax({
+			type: 'get',
+			url: '/chapter06_SpringWebMaven/user/searchName',
+			data: 'name='+$('#search').val(),
+			dataType:'json',
+			success: function(json){
+
+			}
+		});
+	}
+	
+	if($('#searchOpt').val()=='아이디'){
+		$.ajax({
+			type: 'get',
+			url: '/chapter06_SpringWebMaven/user/searchId',
+			data: 'id='+$('#search').val(),
+			dataType:'json',
+			success: function(json){
+				
+			}
+		});
+	}
 });

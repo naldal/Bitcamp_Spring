@@ -14,8 +14,7 @@
 		select * from usertable where id=(#{id})
 	</select>
 	
-	
-	<update id="updateUser" parameterType="user">
+	<update id="modify" parameterType="user">
 		update usertable set name = #{name}, pwd = #{pwd} where id = #{id}
 	</update>
 	

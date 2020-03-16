@@ -14,6 +14,15 @@
 			<th width="100">비밀번호</th>
 		</tr>
 	</table>
+	
+	<select id="searchOpt">
+		<option>이름</option>
+		<option>아이디</option>
+	</select>
+	
+	<input type="text" id="search">
+	
+	<button id="searchBtn">검색</button>
 </body>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
