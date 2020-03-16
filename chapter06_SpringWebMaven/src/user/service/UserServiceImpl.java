@@ -1,5 +1,7 @@
 package user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +18,8 @@ public class UserServiceImpl implements UserService{
 		userDAO.write(userDTO);
 	}
 
+	@Override
+	public List<UserDTO> getUserList() {
+		return userDAO.getUserList();
+	}
 }

@@ -17,7 +17,7 @@ $('#writeBtn').click(function(){
 		$('#pwdDiv').css('font-size', '8px');
 		$('#pwdDiv').css('color','red');
 	} else {
-		$.ajax({
+		$.ajax({	//most important point //cross browsing x
 			type: 'POST',
 			url: '/chapter06_SpringWebMaven/user/write',
 			data: $('#writeForm').serialize(),
