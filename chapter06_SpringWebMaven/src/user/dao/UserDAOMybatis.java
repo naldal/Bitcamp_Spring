@@ -1,6 +1,7 @@
 package user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,13 @@ public class UserDAOMybatis implements UserDAO {
 	}
 
 	@Override
-	public int delete(String id) {
-		return sqlSession.delete("userSQL.deleteUser", id);
+	public void delete(String id) {
+		sqlSession.delete("userSQL.deleteUser", id);
+	}
+
+	@Override
+	public List<UserDTO> search(Map<String, String> map) {
+		return sqlSession.selectList("userSQL.search", map);
 	}
 
 }

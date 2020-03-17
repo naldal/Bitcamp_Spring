@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="getUser" parameterType="String" resultType="user">
-		select * from usertable where id=(#{id})
+		select * from usertable where id=#{id}
 	</select>
 	
 	<update id="modify" parameterType="user">
@@ -24,6 +24,17 @@
 	
 	<select id="checkId" parameterType="user" resultType="user">
 		select * from usertable where id=#{id}
+	</select>
+	
+	<select id="search" parameterType="java.util.Map" resultType="user">
+		<!-- select * from usertable where ${searchOption} like '%'||#{searchText}||'%' -->
+		select * from usertable where
+		<if test="searchOption=='name'">
+			name like '%'||#{searchText}||'%'
+		</if>
+		<if test="searchOption=='id'">
+			id like '%'||#{searchText}||'%'
+		</if>
 	</select>
 	
 </mapper>

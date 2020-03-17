@@ -14,20 +14,65 @@
 			<th width="100">비밀번호</th>
 		</tr>
 	</table>
+	<br>
 	
-	<select id="searchOpt">
-		<option>이름</option>
-		<option>아이디</option>
-	</select>
+	<div class="search">
+		<select name="searchOption" id="searchOption">
+			<option value="">선택</option>
+			<option value="name">이름</option>
+			<option value="id">아이디</option>
+		</select>
+		<input type="text" id="searchText" name="searchText">
+		<button id="searchBtn">검색</button>
+	</div>
 	
-	<input type="text" id="search">
-	
-	<button id="searchBtn">검색</button>
 </body>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+
+	$('#searchBtn').click(function () {
+		if ($('#searchOption').val() == "") {
+			alert("검색옵션을 선택하세요");
+			// return false;
+		} else {
+			$('#table tr:gt(0)').remove();
+			
+			$.ajax({
+				type: 'post',
+				url: '/chapter06_SpringWebMaven/user/search',
+				data: 
+					/* {'searchOption' : $('#searchOption'), 'searchText' : $('#searchText')} */
+					/* 'searchOption=' + $('#searchOption').val()+'&searchText'+$('#searchText').val(), */
+					JSON.stringify({
+						'searchOption':$('#searchOption').val(),
+						'searchText':$('#searchText').val()
+					}),
+				dataType: 'json',
+				contentType: 'application/json;charset=UTF-8',
+				success: function (data) {
+					
+					alert(JSON.stringify(data));
+					
+					$.each(data.list, function(index, items){
+						$('<tr/>').append($('<td/>',{
+							align: 'center',
+							text: items.name
+						})).append($('<td/>',{
+							align: 'center',
+							text: items.id
+						})).append($('<td/>',{
+							align: 'center',
+							text: items.pwd
+						})).appendTo('#table');
+					});
+				}
+			});
+		}
+	});
+	
 	$.ajax({
 		type: 'post',
 		url: '/chapter06_SpringWebMaven/user/getUserList',
@@ -50,6 +95,7 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
 });
 </script>
 </html>

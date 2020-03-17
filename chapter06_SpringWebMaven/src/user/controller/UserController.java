@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,7 +81,6 @@ public class UserController {
 	@ResponseBody
 	public ModelAndView getUserList() {
 		List<UserDTO> list = userService.getUserList();
-		System.out.println(list);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
@@ -133,14 +133,20 @@ public class UserController {
 	
 	@RequestMapping(value = "/delete", method=RequestMethod.POST)
 	@ResponseBody
-	public String delete(@RequestParam String id) {
+	public void delete(@RequestParam String id) {
+		userService.delete(id);
+	}
+	
+	@RequestMapping(value = "/search", method=RequestMethod.POST)
+	@ResponseBody
+//	public void search(@RequestParam String searchOption, @RequestParam String searchText) {
+	public ModelAndView search(@RequestBody Map<String, String> map) {
+		List<UserDTO> list = userService.search(map);
 		
-		int num = userService.delete(id);
-		if(num < 1) {
-			return "non_exist";
-		} else {
-			return "exist";
-		}
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
 		
+		return mav;
 	}
 }
