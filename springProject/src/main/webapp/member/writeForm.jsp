@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-	<form name="writeForm" method="post" action="/miniProject/member/write.do">
+	<form name="writeForm" method="post" action="/springProject/member/write">
 		<table border="1" cellspacing="0" cellpadding="3">
 
 			<tr>
@@ -16,8 +16,7 @@
 				<td align="center">아이디</td>
 				<td>
 					<input type="text" name="id" id="id" placeholder="아이디 입력">
-					<input type="button" value="중복체크" onclick="idCheck2()">
-					<input type="hidden" id="idCheck" name="idCheck" value="">
+					<input type="hidden" id="check" name="check" value="">
 					<div id="idDiv"></div>
 				</td>
 			</tr>
@@ -77,7 +76,7 @@
 				<td align="center">주소</td>
 				<td>
 				<input type="text" name="zipcode" id="zipcode" size="6" readonly>
-				<input type="button" value="우편번호 검색" onclick="checkPost()"><br>
+				<input type="button" value="우편번호 검색" id="checkPostBtn"><br>
 				<input type="text" name="addr1" id="addr1" placeholder="주소" size="50" readonly><br>
 				<input type="text" name="addr2" id="addr2" placeholder="상세 주소" size="50">
  				</td>
@@ -94,3 +93,40 @@
 	</form>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>	
 <script type="text/javascript" src="../js/member.js"></script>
+
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script>
+$(document).ready(function(){	
+	$('#id').focusout(function(){
+		if($('#id').val()==''){
+			$('#idDiv').text('먼저 아이디를 입력하세요.');
+		} else {
+			$.ajax({
+				type: 'post',
+				url : '/springProject/member/checkId',
+				data : 'id='+$('#id').val(),
+				dataType : 'text',
+				success : function(data){
+					if (data == 'exist') {
+						$('#idDiv').text('사용 불가능')
+						$('#idDiv').css('color', 'magenta');
+						$('#idDiv').css('font-size', '8pt');
+						$('#idDiv').css('font-weight', 'bolder');
+					} else if (data == 'non_exist') {
+						$('#idDiv').text('사용 가능')
+						$('#idDiv').css('color', 'blue');
+						$('#idDiv').css('font-size', '8pt');
+						$('#idDiv').css('font-weight', 'bolder');
+						$('#check').val($('#id').val());
+					}
+				}
+			});
+		}
+	});
+	
+	$('#checkPostBtn').click(function(){
+		window.open('/springProject/member/checkPost', '', 'width=400 height=400 scrollbar=yes');
+	});
+	
+});
+</script>
