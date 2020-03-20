@@ -43,4 +43,14 @@ public class BoardDAOMybatis implements BoardDAO {
 	public void boardReply(Map<String, String> map) {
 		sqlSession.insert("boardSQL.boardReply", map);
 	}
+
+	@Override
+	public List<BoardDTO> getBoardSearch(Map<String, String> map) {
+		return sqlSession.selectList("boardSQL.getBoardSearch", map);
+	}
+
+	@Override
+	public int getBoardSearchTotalA(Map<String, String> map) {
+		return sqlSession.selectOne("boardSQL.getBoardSearchTotalA", map);
+	}
 }

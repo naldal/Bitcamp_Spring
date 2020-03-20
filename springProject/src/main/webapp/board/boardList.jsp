@@ -20,7 +20,8 @@
 }
 </style>
 
-<input type="hidden" id="pg" value="${pg}">
+<form id="boardListForm">
+<input type="hidden" name="pg" id="pg" value="${pg}">
 
 <table id="boardListTable" border="1" cellpadding="5" frame="hsides" rules="rows">
  <tr>
@@ -35,76 +36,22 @@
 <div id="boardPagingDiv" style="display:inline-block; width: 700px; text-align: center;">
 ${boardPaging.pagingHTML}</div>
 
+<br><br>
+	<div style="text-align: center;">
+		<select name="searchOption" id="searchOption" style="width:80px;">
+			<option value="subject">제목
+			<option value="id">아이디
+		</select>
+		<input type="text" name="keyword" value="${keyword}" placeholder="검색어 입력">
+		<input type="button" id="boardSearchBtn" value="검색">
+	</div>
+</form>
 
-<script type="text/javascript">
-function isLogin1(id,seq,pg){
-	if(id=='')
-		alert("먼저 로그인하세요");
-	else
-		location.href="boardView.do?seq="+seq+"&pg="+pg;
-}
-</script>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/boardList.js"></script>
 <script>
-	$.ajax({
-		type: 'post',
-		url: '/springProject/board/getBoardList',
-		data: 'pg='+$('#pg').val(),
-		dataType:'json',
-		success: function(data){		
-			 $.each(data.list, function(index, items){
-				$('<tr/>').append($('<td/>',{
-					align: 'center',
-					text: items.seq
-				})).append($('<td/>',{
-				
-					}).append($('<a/>',{
-						href: '#',
-						text: items.subject,
-						id: 'subjectA',
-						class: items.seq+''
-					}))
-					
-				).append($('<td/>',{
-					align: 'center',
-					text: items.id
-				})).append($('<td/>',{
-					align: 'center',
-					text: items.logtime
-				})).append($('<td/>',{
-					align: 'center',
-					text: items.hit
-				})).appendTo($('#boardListTable'));
-				
-				//답글
-				for(i=0; i<=items.lev; i++){
-					$('.'+items.seq).before('&emsp;');
-				}//for
-				if(items.pseq!=0){
-					$('.'+items.seq).before($('<img/>',{
-						src : '../img/reply.gif'
-					}));
-				}
-				
-				
-			}); //each
-			
-			//페이징 처리
-			$('#boardPagingDiv').html(data.boardPaging.pagingHTML);
-			
-			//로그인 여부
-			$('#boardListTable').on('click', '#subjectA', function(){
-				if(data.memId == null) {
-					alert('먼저 로그인하세요');
-				} else {
-					let seq = $(this).attr('class');
-					let pg = data.pg;
-					location.href = '/springProject/board/boardView?seq='+seq+'&pg='+pg;
-					
-				}
-			});
-		}
-	});
+	function boardSearch(pg){
+		$('#pg').val(pg);
+		$('#boardSearchBtn').trigger('click');
+	}
 </script>
-	
-<script type="text/javascript" src="../js/board.js"></script>

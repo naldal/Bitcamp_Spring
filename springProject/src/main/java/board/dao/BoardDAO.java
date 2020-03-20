@@ -12,9 +12,13 @@ public interface BoardDAO {
 	public List<BoardDTO> getBoardList(Map<String, Integer> map);
 	
 	public int getBoardTotalA();
+	public int getBoardSearchTotalA(Map<String, String> map);
 
 	public BoardDTO getBoard(String seq);
 
 	public void boardReply(Map<String, String> map);
+
+	public List<BoardDTO> getBoardSearch(Map<String, String> map);
+
 
 }

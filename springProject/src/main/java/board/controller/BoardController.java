@@ -107,5 +107,32 @@ public class BoardController {
 		
 		return "/main/index";
 	}
+	
+	@RequestMapping(value="getBoardSearch")
+	public ModelAndView getBoard(@RequestParam Map<String, String> map, HttpSession session) {
+		
+		//Map 안에는 pg, searchOption, keyword이 들어와있음
+		String pg = map.get("pg");
+		System.out.println("pg="+map.get("pg"));
+		
+		List<BoardDTO> list = boardService.getBoardSearch(map);
+		
+		//페이징 처리
+		BoardPaging boardPaging = boardService.boardPaging(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg", pg);
+		mav.addObject("searchOption", map.get("searchOption"));
+		System.out.println(map.get("searchOption"));
+		
+		mav.addObject("keyword", map.get("keyword"));
+		System.out.println(map.get("keyword"));
+		
+		mav.addObject("list", list);
+		mav.addObject("memId", session.getAttribute("memId"));
+		mav.addObject("boardPaging", boardPaging);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 
 }
